@@ -1,0 +1,25 @@
+[
+    {
+        "loanId": "1",
+        "costOfAssest": 25000.0,
+        "deposit": 5000.0,
+        "yearlyRateOfInterest": 7.5,
+        "noOfMonthlyPayments": 12.0,
+        "balloonPaymentAmount": 0.0,
+        "totalInterestDue": 821.79,
+        "totalPaymentsDue": 12.0,
+        "balloonPayment": false
+    },
+    {
+        "loanId": "2",
+        "costOfAssest": 25000.0,
+        "deposit": 5000.0,
+        "yearlyRateOfInterest": 7.5,
+        "noOfMonthlyPayments": 12.0,
+        "balloonPaymentAmount": 10000.0,
+        "totalInterestDue": 821.79,
+        "totalPaymentsDue": 12.0,
+        "balloonPayment": true
+    }
+
+]

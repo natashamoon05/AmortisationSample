@@ -33,7 +33,7 @@ public class AmortisationService {
 		double P = request.getCostOfAssest() - request.getDeposit();
 		double r = (request.getYearlyRateOfInterest() * 0.01) / 12;
 		double n = request.getNoOfMonthlyPayments();
-		
+		List <InstallmentRecord> installments = new ArrayList<InstallmentRecord>();
 		if(request.isBalloonPayment()) {
 			//(P-(B/((1+r)^n)))*(r/1-(1+r)^-n)
 			double B = request.getBalloonPaymentAmount();
@@ -42,7 +42,11 @@ public class AmortisationService {
 				double interest = Double.valueOf(df.format(P * r));
 				double principal = Double.valueOf(df.format(monthlyRepayment - interest));
 				P = Double.valueOf(df.format(P - principal));
-				createNewInstallmentRecord (loanDetails, i,monthlyRepayment, principal,interest, P);
+				if (i == n && (P-B) != 0) {
+					monthlyRepayment = Double.valueOf(df.format(monthlyRepayment + P - B));
+					P = B;
+				}
+				installments.add(createNewInstallmentRecord (loanDetails, i,monthlyRepayment, principal,interest, P));
 			}
 		} else {
 			//P*((r*(1+r)^n)/((1+r)^n-1))
@@ -51,14 +55,19 @@ public class AmortisationService {
 				double interest = Double.valueOf(df.format(P * r));
 				double principal = Double.valueOf(df.format(monthlyRepayment - interest));
 				P = Double.valueOf(df.format(P - principal));
-				createNewInstallmentRecord (loanDetails, i,monthlyRepayment, principal,interest, P);
-			}
-			
+				if (i == n && P != 0) {
+					monthlyRepayment = Double.valueOf(df.format(monthlyRepayment + P));
+					P = 0;
+				}
+				installments.add(createNewInstallmentRecord (loanDetails, i,monthlyRepayment, principal,interest, P));
+			}	
 		}
+		Collections.sort(installments);
+		loanDetails.setInstallments(installments);
 		return loanDetails;
 	}
 
-	private void createNewInstallmentRecord(LoanDetails loanDetails, int i, double monthlyRepayment,
+	private InstallmentRecord createNewInstallmentRecord(LoanDetails loanDetails, int i, double monthlyRepayment,
 			double principal, double interest, double balance) {
 		InstallmentRecord instRecord = new InstallmentRecord();
 		instRecord.setPeriod(i);
@@ -68,6 +77,7 @@ public class AmortisationService {
 		instRecord.setLoanDetails(loanDetails);
 		instRecord.setBalance(balance);
 		installmentRecordRepository.save(instRecord);
+		return instRecord;
 	}
 
 	private LoanDetails createLoanDetailsEntity(ScheduleRequest request) {

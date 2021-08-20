@@ -24,7 +24,7 @@ public class InstallmentRecord implements Comparable<InstallmentRecord> {
 	private String id;
 	private Integer period;
 	private double payment;
-	private double prinipal;
+	private double principal;
 	private double interest;
 	private double balance;
 	@ManyToOne
@@ -53,10 +53,10 @@ public class InstallmentRecord implements Comparable<InstallmentRecord> {
 		this.payment = payment;
 	}
 	public double getPrinipal() {
-		return prinipal;
+		return principal;
 	}
 	public void setPrinipal(double prinipal) {
-		this.prinipal = prinipal;
+		this.principal = prinipal;
 	}
 	public double getInterest() {
 		return interest;

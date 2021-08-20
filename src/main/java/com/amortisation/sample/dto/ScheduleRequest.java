@@ -14,7 +14,7 @@ public class ScheduleRequest {
 	public double costOfAssest;
 	private double deposit;
 	private double yearlyRateOfInterest;
-	private double noOfMonthlyPayments;
+	private int noOfMonthlyPayments;
 	private boolean balloonPayment;
 	private double balloonPaymentAmount;
 	public double getCostOfAssest() {
@@ -35,10 +35,10 @@ public class ScheduleRequest {
 	public void setYearlyRateOfInterest(double yearlyRateOfInterest) {
 		this.yearlyRateOfInterest = yearlyRateOfInterest;
 	}
-	public double getNoOfMonthlyPayments() {
+	public int getNoOfMonthlyPayments() {
 		return noOfMonthlyPayments;
 	}
-	public void setNoOfMonthlyPayments(double noOfMonthlyPayments) {
+	public void setNoOfMonthlyPayments(int noOfMonthlyPayments) {
 		this.noOfMonthlyPayments = noOfMonthlyPayments;
 	}
 	public boolean isBalloonPayment() {

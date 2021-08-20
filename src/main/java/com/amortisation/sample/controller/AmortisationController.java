@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.amortisation.sample.dto.ScheduleRequest;
 import com.amortisation.sample.dto.ScheduleResponseDto;
-import com.amortisation.sample.model.LoanDetails;
 import com.amortisation.sample.service.AmortisationService;
 
 @RestController
@@ -25,9 +24,8 @@ public class AmortisationController {
 	
 	@PostMapping("/createAmotisationSchedule")
 	public ResponseEntity<String> createSchedule (@RequestBody ScheduleRequest requestBody) {
-		
-		LoanDetails l = amortisationService.createAmortisationSchedule(requestBody);
-		return new ResponseEntity<String>("Schedule Created Successfully with Id : " + l.getLoanId() , HttpStatus.CREATED);
+		amortisationService.createAmortisationSchedule(requestBody);
+		return new ResponseEntity<String>("Schedule Created Successfully !" , HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/getAllSchedules")

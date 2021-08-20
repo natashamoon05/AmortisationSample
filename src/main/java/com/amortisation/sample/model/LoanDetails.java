@@ -3,6 +3,7 @@ package com.amortisation.sample.model;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,7 +30,7 @@ public class LoanDetails {
 	private boolean isBalloonPayment;
 	private double balloonPaymentAmount;
 	
-	@OneToMany(mappedBy="loanDetails")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="loanDetails")
 	private List<InstallmentRecord> installments;
 
 	public String getLoanId() {
